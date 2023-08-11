@@ -18,8 +18,12 @@ public class TradutorController {
     private final PalavraService palavraService;
 
     @GetMapping("/traducao")
-    public ResponseEntity<String> buscarTraucao(@RequestParam("palavra_tupi") String palavraTupi) {
-        String traducao = palavraService.traduzirPalavra(palavraTupi);
-        return ResponseEntity.ok(traducao);
+    public ResponseEntity<String> buscarTraducao(@RequestParam("fraseTupi") String fraseTupi) {
+        String fraseTraduzida = palavraService.traduzirFrase(fraseTupi);
+        if (fraseTraduzida != null) {
+            return ResponseEntity.ok(fraseTraduzida);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 }
